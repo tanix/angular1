@@ -1,0 +1,48 @@
+<!Doctype html>
+<html ng-app="myApp">
+	<head>
+		<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/todoItems.css">
+	</head>
+	<body>
+		<div class="container" ng-controller="TodoItemsController as todoItemsList">
+			<h1>TODO items</h1>
+			<input type="text" ng-model="todoItemsList.search" class="search" placeholder="Search by Item ...">
+			<ul>
+				<li ng-repeat="item in todoItemsList.items | filter:todoItemsList.search">
+					{{item.description}} : <span class="status">{{item.status}}</span>
+					<button type="button" class="btn btn-default" ng-click="todoItemsList.delete()">Delete</button>
+					<button type="button" class="btn btn-default" ng-click="todoItemsList.update()">Update</button>
+				</li>
+			</ul>
+			<button type="button" class="btn btn-default" ng-click="todoItemsList.open()">Add item</button>
+		</div>
+		<script type="text/ng-template" id="myModalContent.html">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-title">Add new item!</h3>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<form>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="text" ng-model="todoItemsList.newItem" placeholder="Add new item ...">
+							{{todoItemsList.newItem}}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-primary" type="button" ng-click="$ctrl.add()">Add</button>
+							<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
+		<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+		<script src="js/todoItems.js"></script>
+	</body>
+</html>

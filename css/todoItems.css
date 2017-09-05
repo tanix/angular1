@@ -1,0 +1,38 @@
+.container {
+	width: 500px;
+	margin: 0 auto;
+}
+
+h1 {
+	color: dodgerblue;
+	text-align: center;
+}
+
+ul {
+	list-style-type: decimal;
+}
+
+ul li:before {
+	content: 'Task: ';
+	color: green;
+	font-style: italic;
+}
+
+.status {
+	color: purple;
+}
+
+.hidden {
+	display: none;
+}
+input {
+	border-radius: 3px;
+	border: 1px solid gray;
+	padding: 5px;
+}
+
+.search {
+	width: 100%;
+}
+
+
