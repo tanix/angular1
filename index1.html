@@ -1,47 +1,52 @@
 <!doctype html>
 <html ng-app="ui.bootstrap.demo">
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/todoItems.css">
-</head>
-<body>
+  <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
+        <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+        <script src="js/example.js"></script>
 
-<div class="container" ng-controller="TodoItemsController as todoItemsList">
-	<h1>TODO items</h1>
-	<input type="text" ng-model="todoItemsList.search" class="search" placeholder="Search by Item ...">
-	<ul>
-		<li ng-repeat="item in todoItemsList.items | filter:todoItemsList.search">
-			{{item.description}} : <span class="status">{{item.status}}</span>
-			<button type="button" class="btn btn-default" ng-click="todoItemsList.open(item)">Update</button>
-			<button type="button" class="btn btn-default" ng-click="todoItemsList.remove(item)">Delete</button>
-		</li>
-	</ul>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/todoItems.css">
+  </head>
+  <body>
 
-	<button type="button" class="btn btn-default" ng-click="todoItemsList.open()">+</button>
+<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+        </div>
 
-	<script type="text/ng-template" id="myModalContent.html">
-		<div class="modal-header">
-			<h3 class="modal-title" id="modal-title">Add new item.</h3>
-		</div>
-		<div class="modal-body" id="modal-body">
-			<p>Title:<br>
-			<input type="text" ng-model="todoItemsList.newItem.title" id="title"></p>
-			<p>Description:<br>
-			<input type="text" ng-model="todoItemsList.newItem.description"></p>
-			<p>Is done: <input type="checkbox" ng-model="todoItemsList.newItem.done"></p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-primary" type="button" ng-click="todoItemsList.ok()">OK</button>
-			<button class="btn btn-warning" type="button" ng-click="todoItemsList.cancel()">Cancel</button>
-		</div>
-	</script>
+       <div class="modal-body" id="modal-body">
+            <p>Title:<br>
+            <input type="text" ng-value="$ctrl.newItem.title" ng-model="$ctrl.newItem.title"></p>
+            <p>Description:<br>
+            <input type="text" ng-value="$ctrl.newItem.description" ng-model="$ctrl.newItem.description"></p>
+            <p>Is done: <input type="checkbox" ></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        </div>
+    </script>
 
+    <h1>TODO items</h1>
+    <input type="text" ng-model="$ctrl.search" class="search" placeholder="Search by Item ...">
+        <ul>
+            <li ng-repeat="item in $ctrl.items | filter:$ctrl.search">
+                 {{item.title}} {{item.description}} : <span class="status">{{item.status}}</span>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.open(item)">Update</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.remove(item)">Delete</button>
+            </li>
+        </ul>
+
+    <button type="button" class="btn btn-default" ng-click="$ctrl.open()">+</button>
+
+    <div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
+    <div class="modal-parent">
+    </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
-<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-<script src="js/example.js"></script>
-</body>
+  </body>
 </html>

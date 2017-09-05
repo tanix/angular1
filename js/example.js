@@ -1,8 +1,8 @@
 angular.module('ui.bootstrap.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
-angular.module('ui.bootstrap.demo').controller('TodoItemsController', function ($uibModal, $log, $document) {
-	var todoItemsList = this;
+angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
+  var $ctrl = this;
 
-	todoItemsList.items = [
+  $ctrl.items  = [
 		{
 			title: 'Задача 1',
 			description: 'Описание задачи 1',
@@ -17,62 +17,75 @@ angular.module('ui.bootstrap.demo').controller('TodoItemsController', function (
 			title: 'Задача 3',
 			description: 'Описание задачи 3',
 			status: 'To do'
-		}
+		},
 	];
 
-	todoItemsList.search = '';
+	$ctrl.search = '';
 
-	todoItemsList.newItem = {
-		title: '',
-		description: '',
-		done: false
-	};
+  $ctrl.open = function (item) {
+  	
+    var modalInstance = $uibModal.open({
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      controllerAs: '$ctrl',    
+      resolve: {
+        item: function () {
+          return item;
+        }
+      }
+    });
 
-	todoItemsList.remove = function(item) {
-		var index = todoItemsList.items.indexOf(item);
-		todoItemsList.items.splice(index, 1);
-		console.log(todoItemsList.items);
-	};
-
-	todoItemsList.open = function (item) {
-		//var parentElem = angular.element($document[0].querySelector('body'));
-		var modalInstance = $uibModal.open({
-			ariaLabelledBy: 'modal-title',
-			ariaDescribedBy: 'modal-body',
-			templateUrl: 'myModalContent.html',
-			controller: 'ModalInstanceCtrl',
-			controllerAs: 'todoItemsList',
-			resolve: {
-				item: function () {
-					return item;
+    modalInstance.result.then(function (data) {
+      		$ctrl.items.push(
+				{
+					title: data.title,
+					description: data.description,
+					status: ''
 				}
-			}
-		});
+			);
+			
+			
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
 
-		modalInstance.result.then(function (data) {
-			todoItemsList.items.push({ title: data.title, description: data.description, status: 'To do' });
-			todoItemsList.newItem = '';
-			console.log(data);
-		}, function () {
-			$log.info('Modal dismissed at: ' + new Date());
-		});
+  	$ctrl.remove = function(item) {
+		var index = $ctrl.items.indexOf(item);
+		$ctrl.items.splice(index, 1);		
 	};
 });
 
 
 angular.module('ui.bootstrap.demo').controller('ModalInstanceCtrl', function ($uibModalInstance, item) {
-	var $ctrl = this;
-	var $item = item;
+  var $ctrl = this;
+ 
+  // $ctrl.selected = {
+  //   item: $ctrl.items[0]
+  // };
 
-	console.log($item);
+  $ctrl.newItem = {
+  	title: '',
+  	description: '',
+  }
+	if(item) {
+		  $ctrl.newItem = {
+  	title: item.title,
+  	description: item.description,
+  }
 
-	//todoItemsList.newItem = items;
+	}
 
-	$ctrl.ok = function () {
-		$uibModalInstance.close($ctrl.newItem);
-	};
 
-	$ctrl.cancel = function () {
-		$uibModalInstance.dismiss('cancel');
-	};
+
+  $ctrl.ok = function () {
+    $uibModalInstance.close($ctrl.newItem);
+  };
+
+  $ctrl.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
 });
+
