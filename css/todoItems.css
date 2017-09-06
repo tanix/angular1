@@ -1,38 +1,35 @@
-.container {
-	width: 500px;
-	margin: 0 auto;
+.margin-bottom10 {
+	margin-bottom: 10px;
 }
 
-h1 {
-	color: dodgerblue;
-	text-align: center;
+.search {
+	width: 100%;
+	margin: 0 0 20px 0;
 }
 
-ul {
-	list-style-type: decimal;
+.todo-items-head {
+	margin: 0 0 20px 0;
+	padding: 10px 0;
 }
 
-ul li:before {
-	content: 'Task: ';
-	color: green;
-	font-style: italic;
+.todo-item {
+	margin: 0 0 10px 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid lightgray;
 }
 
 .status {
 	color: purple;
 }
 
-.hidden {
-	display: none;
-}
 input {
 	border-radius: 3px;
 	border: 1px solid gray;
 	padding: 5px;
 }
 
-.search {
-	width: 100%;
+@media(max-width:767px) {
+	.todo-item .btn {
+		width: 100%;
+	}
 }
-
-
