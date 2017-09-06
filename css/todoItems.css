@@ -6,10 +6,6 @@
 	margin-bottom: 20px;
 }
 
-.search {
-	width: 100%;
-}
-
 .todo-items-head {
 	padding: 10px 0;
 }
@@ -19,24 +15,16 @@
 	border-bottom: 1px solid lightgray;
 }
 
-.status {
-	color: purple;
-}
-
-input {
+input[type="text"],
+textarea {
+	width: 100%;
 	border-radius: 3px;
 	border: 1px solid gray;
 	padding: 5px;
 }
 
-.modal-dialog input[type="text"],
-.modal-dialog textarea {
-	width: 100%;
-}
-
 .modal-dialog .title {
 	padding: 5px;
-	margin: 0 0 10px 0;
 }
 
 .bg-faded {
@@ -46,6 +34,7 @@ input {
 .btn-add-item {
 	margin: 20px 0;
 }
+
 @media(max-width:767px) {
 	.todo-item .btn {
 		width: 100%;
