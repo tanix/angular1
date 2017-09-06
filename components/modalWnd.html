@@ -1,0 +1,26 @@
+<div class="modal-header bg-primary margin-bottom10">
+	<h4 class="modal-title">{{$ctrl.modalTask}} item</h4>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="row margin-bottom20">
+		<div class="col-md-12">
+			<div class="title bg-primary margin-bottom10">Title:</div>
+			<input type="text" ng-value="$ctrl.newItem.title" ng-model="$ctrl.newItem.title"></p>
+		</div>
+	</div>
+	<div class="row margin-bottom20">
+		<div class="col-md-12">
+			<div class="title bg-primary margin-bottom10">Description:</div>
+			<textarea type="text"ng-model="$ctrl.newItem.description">{{$ctrl.newItem.description}}</textarea>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<span class="text-primary">Status:</span> <input type="checkbox" ng-model="$ctrl.newItem.status">
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">{{$ctrl.modalTask}}</button>
+	<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Close</button>
+</div>

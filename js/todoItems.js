@@ -1,11 +1,17 @@
 angular.module('todo.items.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
-angular.module('todo.items.demo').controller('ToDoItemsCtrl', function ($uibModal, $log) {
+
+function ToDoItemsCtrl($uibModal, $log) {
 	var $ctrl = this;
 	$ctrl.isLoaded = false;
 	$ctrl.search = '';
 	$ctrl.addModal = 'Add';
 	$ctrl.updateModal = 'Update';
 	var updateModalInstance = {}, addModalInstance = {};
+
+
+	$ctrl.hero = {
+		name: 'Spawn'
+	};
 
 	$ctrl.items  = [
 		{
@@ -34,7 +40,7 @@ angular.module('todo.items.demo').controller('ToDoItemsCtrl', function ($uibModa
 		updateModalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
-			templateUrl: 'myModalContent.html',
+			templateUrl: 'components/modalWnd.html',
 			controller: 'ModalInstanceCtrl',
 			controllerAs: '$ctrl',
 			resolve: {
@@ -54,11 +60,11 @@ angular.module('todo.items.demo').controller('ToDoItemsCtrl', function ($uibModa
 
 	$ctrl.add = function() {
 		addModalInstance = $uibModal.open({
-		ariaLabelledBy: 'modal-title',
-		ariaDescribedBy: 'modal-body',
-		templateUrl: 'myModalContent.html',
-		controller: 'ModalInstanceCtrl',
-		controllerAs: '$ctrl',
+			ariaLabelledBy: 'modal-title',
+			ariaDescribedBy: 'modal-body',
+			templateUrl: 'myModalContent.html',
+			controller: 'ModalInstanceCtrl',
+			controllerAs: '$ctrl',
 			resolve: {
 				item: function () {},
 				modalTask: function () { return $ctrl.addModal; }
@@ -71,8 +77,13 @@ angular.module('todo.items.demo').controller('ToDoItemsCtrl', function ($uibModa
 			$log.info('Modal dismissed at: ' + new Date());
 		});
 	};
-});
+}
 
+angular.module('todo.items.demo').component('listItems', {
+	templateUrl: 'components/toDoItems.html',
+	controller: ToDoItemsCtrl,
+	styleUrls:  ['css/components/toDoItems.css']
+});
 
 angular.module('todo.items.demo').controller('ModalInstanceCtrl', function ($uibModalInstance, item, modalTask) {
 	var $ctrl = this;
