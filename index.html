@@ -2,17 +2,11 @@
 <html ng-app="todo.items.demo">
   <head>
         <meta charset="UTF-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
-        <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-        <script src="js/todoItems.js"></script>
-
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/todoItems.css">
   </head>
   <body>
-	<div ng-controller="ToDoItemsCtrl as $ctrl" class="container modal-demo">
+	<div ng-controller="ToDoItemsCtrl as $ctrl" class="container" ng-class="{'hide': $ctrl.isLoaded}" >
 	    <script type="text/ng-template" id="myModalContent.html">
 		    <div class="modal-header bg-primary margin-bottom10">
 			    <h4 class="modal-title">{{$ctrl.modalTask}} item</h4>
@@ -78,7 +72,11 @@
 				<button type="button" class="btn btn-primary btn-sm btn-add-item" ng-click="$ctrl.add()"><span class="glyphicon glyphicon-plus"></span></button>
 			</div>
 		</div>
-
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
+	<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+	<script src="js/todoItems.js"></script>
   </body>
 </html>

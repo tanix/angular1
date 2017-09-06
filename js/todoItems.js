@@ -1,6 +1,7 @@
 angular.module('todo.items.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 angular.module('todo.items.demo').controller('ToDoItemsCtrl', function ($uibModal, $log) {
 	var $ctrl = this;
+	$ctrl.isLoaded = false;
 	$ctrl.search = '';
 	$ctrl.addModal = 'Add';
 	$ctrl.updateModal = 'Update';
