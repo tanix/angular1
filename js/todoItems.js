@@ -1,4 +1,6 @@
 angular.module('todo.items.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+angular.module('todo.items.demo').controller('ToDoItemsCtrl', ToDoItemsCtrl);
+angular.module('todo.items.demo').controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
 function ToDoItemsCtrl($uibModal, $log) {
 	var $ctrl = this;
@@ -40,7 +42,7 @@ function ToDoItemsCtrl($uibModal, $log) {
 		updateModalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
-			templateUrl: 'components/modalWnd.html',
+			templateUrl: 'components/modalContent.html',
 			controller: 'ModalInstanceCtrl',
 			controllerAs: '$ctrl',
 			resolve: {
@@ -62,7 +64,7 @@ function ToDoItemsCtrl($uibModal, $log) {
 		addModalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
-			templateUrl: 'myModalContent.html',
+			templateUrl: 'components/modalContent.html',
 			controller: 'ModalInstanceCtrl',
 			controllerAs: '$ctrl',
 			resolve: {
@@ -79,20 +81,14 @@ function ToDoItemsCtrl($uibModal, $log) {
 	};
 }
 
-angular.module('todo.items.demo').component('listItems', {
-	templateUrl: 'components/toDoItems.html',
-	controller: ToDoItemsCtrl,
-	styleUrls:  ['css/components/toDoItems.css']
-});
-
-angular.module('todo.items.demo').controller('ModalInstanceCtrl', function ($uibModalInstance, item, modalTask) {
+function ModalInstanceCtrl($uibModalInstance, item, modalTask) {
 	var $ctrl = this;
 	$ctrl.modalTask = modalTask;
 	$ctrl.newItem = { title: '', description: '', status: false};
 
-		if(item) {
-			$ctrl.newItem = { title: item.title, description: item.description, status: item.status };
-		}
+	if(item) {
+		$ctrl.newItem = { title: item.title, description: item.description, status: item.status };
+	}
 
 	$ctrl.ok = function () {
 		$uibModalInstance.close($ctrl.newItem);
@@ -101,5 +97,10 @@ angular.module('todo.items.demo').controller('ModalInstanceCtrl', function ($uib
 	$ctrl.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
+}
+
+angular.module('todo.items.demo').component('itemsList', {
+	templateUrl: 'components/toDoItems.html',
+	controller: ToDoItemsCtrl
 });
 
