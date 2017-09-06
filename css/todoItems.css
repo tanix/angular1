@@ -2,19 +2,20 @@
 	margin-bottom: 10px;
 }
 
+.margin-bottom20 {
+	margin-bottom: 20px;
+}
+
 .search {
 	width: 100%;
-	margin: 0 0 20px 0;
 }
 
 .todo-items-head {
-	margin: 0 0 20px 0;
 	padding: 10px 0;
 }
 
 .todo-item {
-	margin: 0 0 10px 0;
-	padding: 0 0 10px 0;
+	padding: 15px 0;
 	border-bottom: 1px solid lightgray;
 }
 
@@ -28,8 +29,29 @@ input {
 	padding: 5px;
 }
 
+.modal-dialog input[type="text"],
+.modal-dialog textarea {
+	width: 100%;
+}
+
+.modal-dialog .title {
+	padding: 5px;
+	margin: 0 0 10px 0;
+}
+
+.bg-faded {
+	background-color: #f7f7f7;
+}
+
+.btn-add-item {
+	margin: 20px 0;
+}
 @media(max-width:767px) {
 	.todo-item .btn {
 		width: 100%;
+	}
+
+	.status, .title {
+		margin-bottom: 10px;
 	}
 }
