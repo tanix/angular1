@@ -1,6 +1,5 @@
 angular.module('todo.items.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 angular.module('todo.items.demo').controller('ToDoItemsCtrl', ToDoItemsCtrl);
-angular.module('todo.items.demo').controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
 function ToDoItemsCtrl($uibModal, $log) {
 	var $ctrl = this;
@@ -42,9 +41,7 @@ function ToDoItemsCtrl($uibModal, $log) {
 		updateModalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
-			templateUrl: 'components/modalContent.html',
-			controller: 'ModalInstanceCtrl',
-			controllerAs: '$ctrl',
+			component: 'modalComponent',
 			resolve: {
 				item: function () { return item; },
 				modalTask: function () { return $ctrl.updateModal; }
@@ -64,9 +61,7 @@ function ToDoItemsCtrl($uibModal, $log) {
 		addModalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
-			templateUrl: 'components/modalContent.html',
-			controller: 'ModalInstanceCtrl',
-			controllerAs: '$ctrl',
+			component: 'modalComponent',
 			resolve: {
 				item: function () {},
 				modalTask: function () { return $ctrl.addModal; }
@@ -81,26 +76,39 @@ function ToDoItemsCtrl($uibModal, $log) {
 	};
 }
 
-function ModalInstanceCtrl($uibModalInstance, item, modalTask) {
-	var $ctrl = this;
-	$ctrl.modalTask = modalTask;
-	$ctrl.newItem = { title: '', description: '', status: false};
-
-	if(item) {
-		$ctrl.newItem = { title: item.title, description: item.description, status: item.status };
-	}
-
-	$ctrl.ok = function () {
-		$uibModalInstance.close($ctrl.newItem);
-	};
-
-	$ctrl.cancel = function () {
-		$uibModalInstance.dismiss('cancel');
-	};
-}
-
 angular.module('todo.items.demo').component('itemsList', {
 	templateUrl: 'components/toDoItems.html',
 	controller: ToDoItemsCtrl
 });
+
+angular.module('todo.items.demo').component('modalComponent', {
+	templateUrl: 'components/modalContent.html',
+	bindings: {
+		resolve: '<',
+		close: '&',
+		dismiss: '&'
+	},
+	controller: function() {
+		var $ctrl = this;
+
+		$ctrl.$onInit = function () {
+			var $ctrl = this;
+			$ctrl.modalTask = $ctrl.resolve.modalTask;
+			$ctrl.newItem = { title: '', description: '', status: false};
+
+			if($ctrl.resolve.item) {
+				$ctrl.newItem = { title: $ctrl.resolve.item.title, description: $ctrl.resolve.item.description, status: $ctrl.resolve.item.status };
+			}
+		};
+
+		$ctrl.ok = function () {
+			$ctrl.close({$value: $ctrl.newItem});
+		};
+
+		$ctrl.cancel = function () {
+			$ctrl.dismiss({$value: 'cancel'});
+		};
+	}
+});
+
 
