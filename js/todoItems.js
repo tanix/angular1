@@ -1,5 +1,6 @@
 angular.module('todo.items.demo', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 angular.module('todo.items.demo').controller('ToDoItemsCtrl', ToDoItemsCtrl);
+angular.module('todo.items.demo').controller('ModalInstanceCtrl', ModalInstanceCtrl);
 
 function ToDoItemsCtrl($uibModal, $log) {
 	var $ctrl = this;
@@ -8,11 +9,6 @@ function ToDoItemsCtrl($uibModal, $log) {
 	$ctrl.addModal = 'Add';
 	$ctrl.updateModal = 'Update';
 	var updateModalInstance = {}, addModalInstance = {};
-
-
-	$ctrl.hero = {
-		name: 'Spawn'
-	};
 
 	$ctrl.items  = [
 		{
@@ -76,6 +72,28 @@ function ToDoItemsCtrl($uibModal, $log) {
 	};
 }
 
+function ModalInstanceCtrl() {
+	var $ctrl = this;
+
+	$ctrl.$onInit = function () {
+		var $ctrl = this;
+		$ctrl.modalTask = $ctrl.resolve.modalTask;
+		$ctrl.newItem = { title: '', description: '', status: false};
+
+		if($ctrl.resolve.item) {
+			$ctrl.newItem = { title: $ctrl.resolve.item.title, description: $ctrl.resolve.item.description, status: $ctrl.resolve.item.status };
+		}
+	};
+
+	$ctrl.ok = function () {
+		$ctrl.close({$value: $ctrl.newItem});
+	};
+
+	$ctrl.cancel = function () {
+		$ctrl.dismiss({$value: 'cancel'});
+	};
+}
+
 angular.module('todo.items.demo').component('itemsList', {
 	templateUrl: 'components/toDoItems.html',
 	controller: ToDoItemsCtrl
@@ -88,27 +106,7 @@ angular.module('todo.items.demo').component('modalComponent', {
 		close: '&',
 		dismiss: '&'
 	},
-	controller: function() {
-		var $ctrl = this;
-
-		$ctrl.$onInit = function () {
-			var $ctrl = this;
-			$ctrl.modalTask = $ctrl.resolve.modalTask;
-			$ctrl.newItem = { title: '', description: '', status: false};
-
-			if($ctrl.resolve.item) {
-				$ctrl.newItem = { title: $ctrl.resolve.item.title, description: $ctrl.resolve.item.description, status: $ctrl.resolve.item.status };
-			}
-		};
-
-		$ctrl.ok = function () {
-			$ctrl.close({$value: $ctrl.newItem});
-		};
-
-		$ctrl.cancel = function () {
-			$ctrl.dismiss({$value: 'cancel'});
-		};
-	}
+	controller: ModalInstanceCtrl
 });
 
 
